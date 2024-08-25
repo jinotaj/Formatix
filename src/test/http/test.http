@@ -1,0 +1,9 @@
+### one
+POST {{baseURI}}/one
+Accept: application/pdf
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "age": 42
+}
