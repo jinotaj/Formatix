@@ -1,4 +1,4 @@
-package org.jinotaj;
+package org.jinotaj.formatix;
 
 import io.micronaut.runtime.Micronaut;
 
