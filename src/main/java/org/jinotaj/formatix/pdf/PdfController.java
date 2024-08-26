@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.ByteBufOutputStream;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
@@ -21,26 +22,21 @@ public class PdfController {
         this.pdfService = pdfService;
     }
 
+    @Post("/{+path}")
     @Status(HttpStatus.CREATED)
-    @Post(
-            uri = "/{+path}",
-            produces = MediaType.APPLICATION_PDF,
-            consumes = MediaType.APPLICATION_JSON
-    )
+    @Produces(MediaType.APPLICATION_PDF)
+    @Consumes(MediaType.APPLICATION_JSON)
     @ExecuteOn(TaskExecutors.IO)
-    public ByteBuf renderPDF(@PathVariable String path, @Body Map<String, Object> data) throws IOException {
-        ByteBuf byteBuf = allocator.ioBuffer(128);
-        ByteBufOutputStream outputStream = new ByteBufOutputStream(byteBuf);
+    public byte[] renderPDF(@PathVariable String path, @Body Map<String, Object> data) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         pdfService.render(path, data, outputStream);
-        return byteBuf;
+        return outputStream.toByteArray();
     }
 
+    @Post("/{+path}")
     @Status(HttpStatus.CREATED)
-    @Post(
-            uri = "/{+path}",
-            produces = MediaType.APPLICATION_XML,
-            consumes = MediaType.APPLICATION_JSON
-    )
+    @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_JSON)
     public String renderFO(@PathVariable String path, @Body Map<String, Object> data) throws IOException {
         return pdfService.renderFO(path, data);
     }
