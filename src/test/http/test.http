@@ -1,9 +1,27 @@
-### one
-POST {{baseURI}}/one
+### Example PDF
+POST {{baseURI}}/example
 Accept: application/pdf
 Content-Type: application/json
 
 {
   "name": "John Doe",
   "age": 42
+}
+
+### Example PDF – returns XSL-FO for debugging
+POST {{baseURI}}/example
+Accept: application/xml
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "age": 42
+}
+
+### Example PDF in nested folder
+POST {{baseURI}}/hello/world
+Accept: application/pdf
+Content-Type: application/json
+
+{
 }
